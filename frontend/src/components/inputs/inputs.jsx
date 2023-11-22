@@ -2,9 +2,10 @@ import styled from "styled-components";
 
 export const Labels = styled.label`
     &:first-child {
-        margin-top: 25%;
+        margin-top: 22%;
     }
     margin-top: 10%;
+    color: #999;
 `
 
 export const Inputs = styled.input`

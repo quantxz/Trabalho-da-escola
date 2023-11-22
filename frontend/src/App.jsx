@@ -12,13 +12,32 @@ import { Form } from './components/Login&Register/form'
 import { Title, SubTitle } from './components/Login&Register/Title'
 import { Description } from './components/descriptions/description'
 import { FaUserAlt, FaCalendar } from "react-icons/fa";
+import axios from 'axios'
 
 export let curtainPosition
 export let originalPosition
 
 function App() {
   const [login, setLogin] = useState(false) 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
   
+  async function registerUser(name, email, password, age) {
+    await axios.post('http://localhost:3001/register', {
+      name,
+      email,
+      password,
+      age
+    }).then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
   if(!login) {
     originalPosition = "50%"
     curtainPosition = "-50%"
@@ -60,16 +79,37 @@ function App() {
         <Title>
           Cadastre-se aqui
         </Title>
-       <Form>
+        <Form>
           <Labels><MdEmail color='#45b6fe'/> Email</Labels>
-          <Inputs placeholder='Email' required />
+          <Inputs
+            placeholder='Email'
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <Labels><FaUnlockKeyhole color='#45b6fe'/> Password</Labels>
-          <InputsPassword placeholder='Password' required/>
+          <InputsPassword
+            placeholder='Password'
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <Labels><FaUserAlt color='#45b6fe'/> Name</Labels>
-          <Inputs placeholder='name' required />
+          <Inputs
+            placeholder='name'
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <Labels><FaCalendar color='#45b6fe'/> Age</Labels>
-          <Inputs placeholder='age' maxLength="10" required/>
-          <Submit />
+          <Inputs
+            placeholder='dd/mm/yyyy'
+            maxLength="10"
+            required
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+          />
+          <Submit onClick={() => registerUser(name, email, password, age)} />
         </Form>
       </Register>
     </ActionsDiv>
