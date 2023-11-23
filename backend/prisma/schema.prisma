@@ -22,9 +22,16 @@ model User {
 }
 
 model Product {
-  id        String @default(uuid()) @id
-  name      String
-  quantity  Int
-  brand     String //marca do produto
+  id            String @default(uuid()) @id
+  name          String
+  price         String
+  category      String
+  description   String
+  quantity      String
+  supplier      String
+  status        String
+  brand         String //marca do produto
+  model         String
+  
   @@map("Product")
 }

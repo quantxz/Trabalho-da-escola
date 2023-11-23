@@ -3,21 +3,59 @@ import prisma from "../configs/prisma";
 import userDto from "../dto/user.dto";
 
 class userController {
-    async register(req: Request, res: Response) {
-       const { ...data }: userDto = req.body
-       console.log(data)
 
-        const user = await prisma.user.create({
-            data:  {
-                name: data.name,
-                email: data.email,
-                password: data.password,
-                age: data.age
+   async login(req: Request, res: Response) {
+      try {
+         const { ...data }: userDto = req.body
+
+         const user = await prisma.user.findFirst({
+            where: {
+               email: data.email,
+               password: data.password
             }
-        })
+         })
+         return res.status(200).json({
+            message: "ok",
+            status: 200,
+            data: user
+         })
+      } catch(error: any) {
+         console.error(error);
+         return res.status(500).json({
+            message: 'Internal Server Error',
+            status: 500,
+            error: error.message,
+         });
+      }
+   }
 
-        return res.status(200).json(user)
-    }
+    async register(req: Request, res: Response) {
+        try {
+           const { ...data }: userDto = req.body;
+     
+           const user = await prisma.user.create({
+              data: {
+                 name: data.name,
+                 email: data.email,
+                 password: data.password,
+                 age: data.age,
+              },
+           });
+     
+           return res.status(200).json({
+              message: 'ok',
+              status: 200,
+              data: user,
+           });
+        } catch (error: any) {
+           console.error(error);
+           return res.status(500).json({
+              message: 'Internal Server Error',
+              status: 500,
+              error: error.message,
+           });
+        }
+     }
 }
 
 

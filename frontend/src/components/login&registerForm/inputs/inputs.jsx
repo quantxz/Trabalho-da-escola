@@ -1,12 +1,4 @@
-import styled from "styled-components";
-
-export const Labels = styled.label`
-    &:first-child {
-        margin-top: 22%;
-    }
-    margin-top: 10%;
-    color: #999;
-`
+import styled from "styled-components"
 
 export const Inputs = styled.input`
     width: 65%;
@@ -28,6 +20,13 @@ export const InputsPassword = styled.input.attrs({type: 'password'})`
     background-color: #fff;
 `
 
+export const Labels = styled.label`
+    &:first-child {
+        margin-top: 22%;
+    }
+    margin-top: 10%;
+    color: #999;
+`
 export const Submit = styled.input.attrs({ type: 'submit' })`
     position: relative;
     top: 15%;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Form = styled.form`
-    position: relative;    
+    position: relative;
     width: 50%;
     height: 50%;
     display: flex;
